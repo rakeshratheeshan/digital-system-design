@@ -11,15 +11,17 @@ module n_adder #(
   always_comb C[0] = ci;
   
   genvar i; 
-  for (i=0; i<N; i=i+1) begin:add
-    // full_adder fa (A[i],B[i],C[i],C[i+1],S[i]);
-    full_adder fa (
-      .a    (A[i  ]),
-      .b    (B[i  ]),
-      .ci   (C[i  ]),
-      .co   (C[i+1]),
-      .sum  (S[i  ])
-    );
-  end
-  always_comb co = C[N];
+  generate
+	 for (i=0; i<N; i=i+1) begin:add
+			 // full_adder fa (A[i],B[i],C[i],C[i+1],S[i]);
+			 full_adder fa (
+				.a    (A[i  ]),
+				.b    (B[i  ]),
+				.ci   (C[i  ]),
+				.co   (C[i+1]),
+				.sum  (S[i  ])
+			 );
+	 end
+	endgenerate
+  assign co = C[N];
 endmodule
